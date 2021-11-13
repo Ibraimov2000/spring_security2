@@ -3,11 +3,20 @@ package web.dao;
 import web.model.Role;
 
 import java.util.List;
-import java.util.Set;
 
 public interface RoleDao {
 
-    List<Role> getAllRoles();
+    void addRole(Role role);
 
-    Set<Role> getByIdRoles(List<Integer> ids);
+    void deleteRole(long id);
+
+    List<Role> getRoles();
+
+    Role getRoleById(long id);
+
+    Role getRoleByName(String rolename);
+
+    Role getRoleById(Long id);
+
+    Role createRoleIfNotFound(long id, String name);
 }

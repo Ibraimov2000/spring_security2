@@ -1,12 +1,23 @@
 package web.service;
 
+
 import web.model.Role;
 
 import java.util.List;
-import java.util.Set;
 
 public interface RoleService {
-    List<Role> getAllRoles();
 
-    Set<Role> getByIdRoles(List<Integer> ids);
+    void addRole(Role role);
+
+    void deleteRole(long id);
+
+    List<Role> getRoles();
+
+    Role getRoleById(long id);
+
+    Role getRoleByName(String rolename);
+
+    Role getRoleById(Long id);
+
+    Role createRoleIfNotFound(long id, String name);
 }

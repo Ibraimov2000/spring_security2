@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit user</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/admin/{id}(id=${user.getId()})}" th:object="${user}">
+
+    <p><input type="hidden" th:field="*{id}" /></p>
+    <label for="name">Name: </label>
+    <input type="text" th:field="*{name}" id="name">
+
+    </br>
+
+    <label for="lastName">Lastname: </label>
+    <input type="text" th:field="*{lastName}" id="lastName">
+
+    </br>
+
+    <label for="city">City: </label>
+    <input type="text" th:field="*{city}" id="city">
+
+    </br>
+
+    <label for="password">Password: </label>
+    <input type="text" th:field="*{password}" id="password">
+
+    </br>
+
+    <ul>
+        <li th:each="role : ${roles}">
+            <input type="checkbox" name="roles"
+                   th:field="*{roles}"
+                   th:text="${role.getName()}"
+                   th:value="${role.getId()}"
+            />
+        </li>
+    </ul>
+    </br>
+
+    <input type="submit" value="Edit user">
+
+</form>
+
+<form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
+    <input type="submit" value="DELETE"/>
+</form>
+
+<br>
+<br>
+<form th:method="GET" action="/logout">
+    <input type="submit" value="Logout">
+</form>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User page</title>
+</head>
+<body>
+
+<table BORDER="1">
+    <tbody>
+    <tr>
+        <td>
+        <a th:text="${user.getName()}">VALUE</a>
+        </td>
+    <tr>
+        <td>
+        <a th:text="${user.getLastName()}">VALUE</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        <a th:text="${user.getCity()}">VALUE</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<br>
+<br>
+<form th:method="GET" action="/logout">
+    <input type="submit" value="Logout">
+</form>
+
+</body>
+</html>

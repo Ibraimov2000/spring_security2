@@ -7,6 +7,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
 public class AppInit extends AbstractAnnotationConfigDispatcherServletInitializer {
+
     // Метод, указывающий на класс конфигурации
     @Override
     protected Class<?>[] getRootConfigClasses() {
@@ -30,13 +31,13 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
     }
 
     @Override
-    public void onStartup(ServletContext servletContext) throws ServletException {
-        super.onStartup(servletContext);
-        registerHiddenFieldFilter(servletContext);
+    public void onStartup(ServletContext aServletContext) throws ServletException {
+        super.onStartup(aServletContext);
+        registerHiddenFieldFilter(aServletContext);
     }
 
-    private void registerHiddenFieldFilter(ServletContext context) {
-        context.addFilter("hiddenHttpMethodFilter", new HiddenHttpMethodFilter())
-                .addMappingForUrlPatterns(null, true, "/*");
+    private void registerHiddenFieldFilter(ServletContext aContext) {
+        aContext.addFilter("hiddenHttpMethodFilter",
+                new HiddenHttpMethodFilter()).addMappingForUrlPatterns(null ,true, "/*");
     }
 }

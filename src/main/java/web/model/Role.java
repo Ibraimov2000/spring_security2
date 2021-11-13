@@ -1,43 +1,47 @@
 package web.model;
 
-
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
+// Этот класс реализует интерфейс GrantedAuthority, в котором необходимо
+// переопределить только один метод getAuthority() (возвращает имя роли).
+// Имя роли должно соответствовать шаблону: «ROLE_ИМЯ», например, ROLE_USER.
+
 @Entity
-@Table(name = "roles")
+@Table(name="roles")
 public class Role implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+    @Column(name = "id", nullable = false)
+    private Long id;
 
-    @Column(name = "name")
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
     private Set<User> users;
 
     public Role() {
     }
 
-    public Role (int id) {
-        this.id = id;
-    }
-
-    public Role(int id, String name) {
+    public Role(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public int getId() {
+    public Role(String name) {
+        this.name = name;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -58,7 +62,30 @@ public class Role implements GrantedAuthority {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Role role = (Role) o;
+        if (!Objects.equals(id, role.id)) return false;
+        if (!Objects.equals(name, role.name)) return false;
+        return Objects.equals(users, role.users);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (users != null ? users.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    @Override
     public String getAuthority() {
-        return getName();
+        return name;
     }
 }
